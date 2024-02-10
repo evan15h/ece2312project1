@@ -1,3 +1,5 @@
+%This code delays and attenuates the phrases as described in part 6 of the project
+
 clc;
 
 Fs = 44100;
@@ -22,9 +24,9 @@ audiowrite(filename, [myRecording1 myRecording1], Fs);
 for zero_change = padded_zeros
     time = time_delay(i);
     %L = padarray(myRecording1, zero_change, 0,'post');
-    R = padarray(myRecording1, zero_change, 0,'pre');
-    col_length = size(R, 1) - zero_change;
-    final_R = R(1:col_length, :);
+    R = padarray(myRecording1, zero_change, 0,'pre'); %Add the specified amount of zeros to the front of the right column vector
+    col_length = size(R, 1) - zero_change; %Determine new column vector size with added zeros
+    final_R = R(1:col_length, :); %Cut off the ending values in the column vector that are replaced by the amount of zeros added to the front
     Stereo = [myRecording1 final_R];
     filename = sprintf('teamRLE-stereosoundfile-%.3fms.wav', time);
     audiowrite(filename, Stereo, Fs);
@@ -39,7 +41,7 @@ dB_levels = [-1.5, -3, -6];
 [myRecording1, Fs] = audioread('teamRLE-stereosoundfile-0ms.wav');
 for dB_change = dB_levels
     attenuation_factor = 10^(dB_change/20);
-    attenuatedR = myRecording1(:, 2)*attenuation_factor;
+    attenuatedR = myRecording1(:, 2)*attenuation_factor; %Multiply entire right column vector by the attenuation factor specified
     attenuated_stereo = [myRecording1(:, 1), attenuatedR];
     filename = sprintf('teamRLE-stereosoundfile-0ms-%.1fdB.wav', dB_change);
     audiowrite(filename, attenuated_stereo, Fs);
@@ -49,7 +51,7 @@ end
 [myRecording1, Fs] = audioread('teamRLE-stereosoundfile-0.596ms.wav');
 for dB_change = dB_levels
     attenuation_factor = 10^(dB_change/20);
-    attenuatedR = myRecording1(:, 2)*attenuation_factor;
+    attenuatedR = myRecording1(:, 2)*attenuation_factor; %Multiply entire right column vector by the attenuation factor specified
     attenuated_stereo = [myRecording1(:, 1), attenuatedR];
     filename = sprintf('teamRLE-stereosoundfile-0.596ms-%.1fdB.wav', dB_change);
     audiowrite(filename, attenuated_stereo, Fs);
