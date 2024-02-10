@@ -1,3 +1,5 @@
+%This code generates the frequency and spectrogram waveforms for all three phrases given in the project
+
 clc;
 clear;
 %---------------------------------------------------------------------------------------------------------------------
@@ -24,7 +26,7 @@ hold off;
 figure(2)
 hold on;
 spectrogram(myRecording1,kaiser(256,5),220,512,Fs1,'yaxis');
-ylim([0 8]);
+ylim([0 8]); %Only show first 8kHz
 title('First Phrase Spectrogram');
 hold off;
 
@@ -52,7 +54,7 @@ hold off;
 figure(4)
 hold on;
 spectrogram(myRecording2,kaiser(256,5),220,512,Fs2,'yaxis');
-ylim([0 8]);
+ylim([0 8]); %Only show first 8kHz
 title('Second Phrase Spectrogram');
 hold off;
 
@@ -80,6 +82,6 @@ hold off;
 figure(6)
 hold on;
 spectrogram(myRecording3,kaiser(256,5),220,512,Fs3,'yaxis');
-ylim([0 8]);
+ylim([0 8]); %Only show first 8kHz
 title('Third Phrase Spectrogram');
 hold off;
